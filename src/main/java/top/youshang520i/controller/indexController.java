@@ -1,5 +1,7 @@
 package top.youshang520i.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +21,14 @@ import java.util.List;
 public class indexController {
     @Autowired
     private UserServiceI userServiceI;
-    //application/json;
     @ResponseBody
     @RequestMapping(value = "/index",produces = "text/html;charset=utf-8",method = RequestMethod.GET)
-    public String index(){
-        System.out.println("进来了.....................");
+    public String index() throws JsonProcessingException {
+        System.out.println("进来了....................1.");
          User user = userServiceI.selectByPrimaryKey(1l);
         System.out.println("查询得到的结果:"+user);
-        return "123"; //userServiceI.selectByPrimaryKey(1l);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(user);
+        return s;
     }
 }
