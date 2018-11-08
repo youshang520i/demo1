@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.youshang520i.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="top.youshang520i.pojo.User" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="U_ID" property="uId" jdbcType="VARCHAR" />
+    <result column="U_NAME" property="uName" jdbcType="VARCHAR" />
+    <result column="U_SEX" property="uSex" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, U_ID, U_NAME, U_SEX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="select" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List"/>
+    FROM T_USER
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="top.youshang520i.pojo.User" >
+    insert into t_user (ID, U_ID, U_NAME, 
+      U_SEX)
+    values (#{id,jdbcType=BIGINT}, #{uId,jdbcType=VARCHAR}, #{uName,jdbcType=VARCHAR}, 
+      #{uSex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="top.youshang520i.pojo.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="uId != null" >
+        U_ID,
+      </if>
+      <if test="uName != null" >
+        U_NAME,
+      </if>
+      <if test="uSex != null" >
+        U_SEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        #{uSex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="top.youshang520i.pojo.User" >
+    update t_user
+    <set >
+      <if test="uId != null" >
+        U_ID = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        U_NAME = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        U_SEX = #{uSex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.youshang520i.pojo.User" >
+    update t_user
+    set U_ID = #{uId,jdbcType=VARCHAR},
+      U_NAME = #{uName,jdbcType=VARCHAR},
+      U_SEX = #{uSex,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
