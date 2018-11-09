@@ -1,5 +1,9 @@
 package top.youshang520i.pojo;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
+@Service("user")
 public class User {
     private Long id;
 
